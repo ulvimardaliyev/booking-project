@@ -1,0 +1,8 @@
+repository SQL Connection-dan istifade edecek
+
+email validation -- emaile mail gonder ve kodu daxil et, 60 saniye sleep et, emaildeki kodu yazsin ve daxil olsun
+
+Socket-leri yoxla
+
+
+
