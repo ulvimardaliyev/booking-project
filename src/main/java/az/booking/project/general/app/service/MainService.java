@@ -2,7 +2,6 @@ package az.booking.project.general.app.service;
 
 import az.booking.project.general.app.entity.Flight;
 import az.booking.project.general.app.entity.Friend;
-import az.booking.project.general.app.entity.PassengerFlight;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,7 +18,7 @@ public interface MainService {
 
     void cancelBooking(int flightId);
 
-    List<PassengerFlight> myFlights();
+    List<Flight> myFlights();
 
     void exit();
 

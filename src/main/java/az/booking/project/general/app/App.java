@@ -1,21 +1,35 @@
 package az.booking.project.general.app;
 
-import java.sql.Date;
-import java.time.LocalDateTime;
+/*import az.booking.project.general.app.service.MainService;
+import az.booking.project.general.app.service.impl.MainServiceImpl;*/
+
+import az.booking.project.general.app.service.LoginService;
+import az.booking.project.general.app.service.MainService;
+import az.booking.project.general.app.service.SignUpService;
+import az.booking.project.general.app.service.impl.LoginServiceImpl;
+import az.booking.project.general.app.service.impl.MainServiceImpl;
+import az.booking.project.general.app.service.impl.SignUpServiceImpl;
+
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class App {
-    public static void main(String[] args) {/*
-
+    public static void main(String[] args) {
         MainService mainService = new MainServiceImpl();
-        mainService.onlineBoard();
+        LoginService loginService = new LoginServiceImpl();
+        SignUpService service = new SignUpServiceImpl();
+        Scanner scanner = new Scanner(System.in);
+        loginService.logIn(scanner.next(), scanner.next());
+        System.out.println(mainService.myFlights());
         System.out.println(mainService.showFlightInfo());
-        System.out.println(mainService.search("Sumqayit", LocalDate.of(2022, 02, 10), 4));
-        System.out.println(mainService.searchById(5));
-*/
-        LocalDateTime localDateTime = LocalDateTime.now();
-        Date date = Date.valueOf(localDateTime.toLocalDate() + localDateTime.toLocalTime());
-        System.out.println(date);
+        mainService.book(scanner.nextInt(), new ArrayList<>());
+        System.out.println(mainService.searchById(scanner.nextInt()));
+        mainService.onlineBoard();
+        System.out.println(mainService.myFlights());
+        mainService.cancelBooking(scanner.nextInt());
+
     }
+
 
     //create while loop
     //call service class and inject it to this main class
