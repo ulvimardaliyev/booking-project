@@ -1,23 +1,3 @@
-create table users
-(
-    id      serial primary key,
-    name    varchar(45),
-    surname varchar(45),
-    email   varchar(45)
-);
-
-create table flights
-(
-    id          serial primary key,
-    fromCity    varchar(255),
-    destination varchar(255),
-    flightDate  date,
-    flightTime  time,
-    seats       int
-);
-
-
-
 create table flight
 (
     id           serial primary key,
@@ -105,7 +85,32 @@ values ('Sumqayit', 'Kiev', 129, '18/02/2022', 22);
 insert into flight(destination, fromThis, serialNumber, flightDate, passenger_count)
 values ('Mingecevir', 'Kiev', 126, '10/03/2022', 88);
 
+insert into passenger_flight(passenger_id, flight_id)
+VALUES (1, 1);
+insert into passenger_flight(passenger_id, flight_id)
+VALUES (1, 3);
 
 
+select p.username, p.email, f.serialnumber
+from passenger p
+         inner join passenger_flight pf on p.ID = pf.passenger_id
+         inner join flight f on pf.flight_id = f.id;
+
+select *
+from flight f
+where f.serialnumber = '125';
+delete
+from passenger
+where id = 8 + 1;
+
+select f.id, f.destination, f.fromthis, f.serialnumber, f.flightdate, f.flighttime
+from flight f
+         inner join passenger_flight pf on f.id = pf.flight_id
+         inner join passenger p on p.id = pf.passenger_id
+where p.id = 3;
 
 
+delete
+from passenger_flight
+where passenger_id = 1
+  and flight_id = 1;

@@ -10,5 +10,5 @@ public interface FlightRepository {
 
     List<Flight> search(String destination, LocalDate localDate, int flyWith);
 
-    Flight searchById(int id);
+    Flight searchFlightById(int id);
 }

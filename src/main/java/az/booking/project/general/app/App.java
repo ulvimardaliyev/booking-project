@@ -3,31 +3,11 @@ package az.booking.project.general.app;
 /*import az.booking.project.general.app.service.MainService;
 import az.booking.project.general.app.service.impl.MainServiceImpl;*/
 
-import az.booking.project.general.app.service.LoginService;
-import az.booking.project.general.app.service.MainService;
-import az.booking.project.general.app.service.SignUpService;
-import az.booking.project.general.app.service.impl.LoginServiceImpl;
-import az.booking.project.general.app.service.impl.MainServiceImpl;
-import az.booking.project.general.app.service.impl.SignUpServiceImpl;
-
-import java.util.ArrayList;
-import java.util.Scanner;
+import az.booking.project.general.app.run.IterateWithWhile;
 
 public class App {
     public static void main(String[] args) {
-        MainService mainService = new MainServiceImpl();
-        LoginService loginService = new LoginServiceImpl();
-        SignUpService service = new SignUpServiceImpl();
-        Scanner scanner = new Scanner(System.in);
-        loginService.logIn(scanner.next(), scanner.next());
-        System.out.println(mainService.myFlights());
-        System.out.println(mainService.showFlightInfo());
-        mainService.book(scanner.nextInt(), new ArrayList<>());
-        System.out.println(mainService.searchById(scanner.nextInt()));
-        mainService.onlineBoard();
-        System.out.println(mainService.myFlights());
-        mainService.cancelBooking(scanner.nextInt());
-
+        IterateWithWhile.iterate();
     }
 
 

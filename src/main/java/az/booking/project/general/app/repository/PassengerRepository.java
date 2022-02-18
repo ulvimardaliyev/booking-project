@@ -1,12 +1,13 @@
 package az.booking.project.general.app.repository;
 
 import az.booking.project.general.app.entity.Flight;
+import az.booking.project.general.app.entity.Friend;
 
 import java.util.List;
 
 public interface PassengerRepository {
 
-    void bookFlight(int serialNumber, String... people);
+    void bookFlight(int serialNumber, List<Friend> friends);
 
     int findCurrentUser(String username, String password);
 

@@ -14,7 +14,7 @@ public class PassengerFlightRepositoryImpl implements PassengerFlightRepository 
     @Override
     public boolean insert(int passengerId, int flightId) {
         try (Connection connection = SQLConfig.sqlConfig().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(Queries.BOOK_FLIGHT);) {
+             PreparedStatement preparedStatement = connection.prepareStatement(Queries.BOOK_FLIGHT)) {
             preparedStatement.setInt(1, passengerId);
             preparedStatement.setInt(2, flightId);
             int resultSet = preparedStatement.executeUpdate();
