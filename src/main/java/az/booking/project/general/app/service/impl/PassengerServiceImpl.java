@@ -1,9 +1,9 @@
 package az.booking.project.general.app.service.impl;
 
-import az.booking.project.general.app.entity.Flight;
-import az.booking.project.general.app.entity.Friend;
-import az.booking.project.general.app.repository.PassengerRepository;
-import az.booking.project.general.app.service.UserService;
+import az.booking.project.general.app.dao.entity.Flight;
+import az.booking.project.general.app.dao.entity.Friend;
+import az.booking.project.general.app.dao.repository.PassengerRepository;
+import az.booking.project.general.app.service.PassengerService;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -16,22 +16,28 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
-public class UserServiceImpl implements UserService {
+public class PassengerServiceImpl implements PassengerService {
     private PassengerRepository passengerRepository;
     private Scanner scanner;
     private static final String SENT_FROM = "merdeliyev@inbox.ru";
     private static final String PASSWORD = "6LrhWSfU9y5MY79nCWhM";
     private static int id = 0;
+    private static String word = "currentUserId=";
     public static final String USER_INFO_FILE_PATH = "src/main/resources/userinfo.txt";
     public static final String EMAIL_SERVER_CONFIG = "src/main/resources/emailconfig.properties";
 
-    public UserServiceImpl(PassengerRepository passengerRepository, Scanner scanner) {
+    public PassengerServiceImpl(PassengerRepository passengerRepository, Scanner scanner) {
         this.passengerRepository = passengerRepository;
         this.scanner = scanner;
     }
 
     @Override
     public boolean login() {
+        int userIdOnFile = PassengerServiceImpl.getUserId();
+        if (userIdOnFile != 0) {
+            System.out.println("You already signed in");
+            return false;
+        }
         System.out.println("You want to login");
         System.out.println("Please enter the username: ");
         String username = scanner.next();
@@ -39,7 +45,7 @@ public class UserServiceImpl implements UserService {
         String password = scanner.next();
         int id = passengerRepository.findCurrentUser(username, password);
         if (id > 0) {
-            UserServiceImpl.writeUserIdToFile(id);
+            PassengerServiceImpl.writeUserIdToFile(id);
             return true;
         }
         return false;
@@ -65,7 +71,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Flight> myFlights() {
-        int id = UserServiceImpl.getUserId();
+        int id = PassengerServiceImpl.getUserId();
         List<Flight> allFlights = passengerRepository.myFlights(id);
         System.out.println(allFlights);
         return allFlights;
@@ -155,28 +161,53 @@ public class UserServiceImpl implements UserService {
     }
 
     public static int getUserId() {
+        String currentWordInFile = readUserInfoFile();
+        if (currentWordInFile.equals(word)) {
+            return 0;
+        }
+        id = Integer.parseInt(currentWordInFile.substring(14));
+        System.out.println("ID is " + id);
+        return id;
+    }
+
+
+    public static void writeUserIdToFile(int userId) {
+
+        try (FileWriter fileWriter1 = new FileWriter(USER_INFO_FILE_PATH)) {
+
+            fileWriter1.append(word).append(Integer.toString(userId));
+            fileWriter1.flush();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static void deleteSessionId() {
+        try (FileWriter fileWriter1 = new FileWriter(USER_INFO_FILE_PATH)) {
+            System.out.println("Inside delete session id");
+            fileWriter1.write("");
+            fileWriter1.write(word);
+            fileWriter1.flush();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private static String readUserInfoFile() {
+        StringBuilder word = new StringBuilder();
         File file = new File(USER_INFO_FILE_PATH);
         try (FileReader fileReader = new FileReader(file)) {
-            StringBuilder word = new StringBuilder();
             int a;
             while ((a = fileReader.read()) != -1) {
                 word.append((char) a);
             }
-            id = Integer.parseInt(word.substring(14));
-            System.out.println("ID is " + id);
         } catch (IOException io) {
             io.printStackTrace();
         }
-        return id;
-    }
-
-    public static void writeUserIdToFile(int userId) {
-        try (FileWriter fileWriter1 = new FileWriter(USER_INFO_FILE_PATH)) {
-            String word = "currentUserId=";
-            fileWriter1.append(word).append(Integer.toString(userId));
-            fileWriter1.flush();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        return word.toString();
     }
 }

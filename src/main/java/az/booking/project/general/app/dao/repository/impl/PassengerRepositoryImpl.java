@@ -1,13 +1,13 @@
-package az.booking.project.general.app.repository.impl;
+package az.booking.project.general.app.dao.repository.impl;
 
 import az.booking.project.general.app.config.SQLConfig;
-import az.booking.project.general.app.entity.Flight;
-import az.booking.project.general.app.entity.Friend;
-import az.booking.project.general.app.repository.FlightRepository;
-import az.booking.project.general.app.repository.PassengerFlightRepository;
-import az.booking.project.general.app.repository.PassengerRepository;
-import az.booking.project.general.app.repository.Queries;
-import az.booking.project.general.app.service.impl.UserServiceImpl;
+import az.booking.project.general.app.dao.entity.Flight;
+import az.booking.project.general.app.dao.entity.Friend;
+import az.booking.project.general.app.dao.repository.FlightRepository;
+import az.booking.project.general.app.dao.repository.PassengerFlightRepository;
+import az.booking.project.general.app.dao.repository.PassengerRepository;
+import az.booking.project.general.app.dao.repository.Queries;
+import az.booking.project.general.app.service.impl.PassengerServiceImpl;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -20,12 +20,15 @@ public class PassengerRepositoryImpl implements PassengerRepository {
     private FlightRepository flightRepository;
     private PassengerFlightRepository passengerFlightRepository;
 
+    public PassengerRepositoryImpl(FlightRepository flightRepository,
+                                   PassengerFlightRepository passengerFlightRepository) {
+        this.flightRepository = flightRepository;
+        this.passengerFlightRepository = passengerFlightRepository;
+    }
+
     @Override
     public void bookFlight(int serialNumber, List<Friend> friends) {
-        this.flightRepository = new FlightRepositoryImpl();
-        this.passengerFlightRepository = new PassengerFlightRepositoryImpl();
         int flightId = 0;
-
         try (Connection connection = SQLConfig.sqlConfig().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(Queries.SEARCH_FLIGHT_BY_SERIAL_NUMBER)) {
             ResultSet resultSet = null;
@@ -36,7 +39,7 @@ public class PassengerRepositoryImpl implements PassengerRepository {
             } else {
                 return;
             }
-            passengerFlightRepository.insert(UserServiceImpl.getUserId(), flightId);
+            passengerFlightRepository.insert(PassengerServiceImpl.getUserId(), flightId);
             System.out.println("Flight Reserved");
 
         } catch (SQLException exception) {
@@ -123,7 +126,6 @@ public class PassengerRepositoryImpl implements PassengerRepository {
 
     @Override
     public void deleteFlight(int flightId) {
-        this.passengerFlightRepository = new PassengerFlightRepositoryImpl();
         passengerFlightRepository.delete(flightId);
     }
 }

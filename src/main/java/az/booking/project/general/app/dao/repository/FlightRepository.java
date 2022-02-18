@@ -1,6 +1,6 @@
-package az.booking.project.general.app.repository;
+package az.booking.project.general.app.dao.repository;
 
-import az.booking.project.general.app.entity.Flight;
+import az.booking.project.general.app.dao.entity.Flight;
 
 import java.time.LocalDate;
 import java.util.List;

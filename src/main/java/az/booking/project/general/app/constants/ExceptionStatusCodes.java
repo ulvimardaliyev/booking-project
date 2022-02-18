@@ -1,4 +1,4 @@
-package az.booking.project.general.app.enums;
+package az.booking.project.general.app.constants;
 
 public enum ExceptionStatusCodes {
     USER_NOT_FOUND(404, "User with this id is not found"),

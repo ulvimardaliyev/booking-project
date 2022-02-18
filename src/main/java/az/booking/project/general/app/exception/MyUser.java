@@ -1,6 +1,6 @@
 package az.booking.project.general.app.exception;
 
-import az.booking.project.general.app.enums.ExceptionStatusCodes;
+import az.booking.project.general.app.constants.ExceptionStatusCodes;
 
 public class MyUser {
 

@@ -1,9 +1,9 @@
-package az.booking.project.general.app.repository.impl;
+package az.booking.project.general.app.dao.repository.impl;
 
 import az.booking.project.general.app.config.SQLConfig;
-import az.booking.project.general.app.entity.Flight;
-import az.booking.project.general.app.repository.FlightRepository;
-import az.booking.project.general.app.repository.Queries;
+import az.booking.project.general.app.dao.entity.Flight;
+import az.booking.project.general.app.dao.repository.FlightRepository;
+import az.booking.project.general.app.dao.repository.Queries;
 
 import java.sql.*;
 import java.time.LocalDate;

@@ -1,4 +1,4 @@
-package az.booking.project.general.app.repository;
+package az.booking.project.general.app.dao.repository;
 
 public interface PassengerFlightRepository {
     boolean insert(int passengerId, int flightId);

@@ -4,5 +4,5 @@ public interface MainService {
 
     void onlineBoard();
 
-    void exit();
+    boolean exit();
 }

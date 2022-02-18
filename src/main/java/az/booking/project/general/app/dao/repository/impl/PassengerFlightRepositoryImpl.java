@@ -1,9 +1,9 @@
-package az.booking.project.general.app.repository.impl;
+package az.booking.project.general.app.dao.repository.impl;
 
 import az.booking.project.general.app.config.SQLConfig;
-import az.booking.project.general.app.repository.PassengerFlightRepository;
-import az.booking.project.general.app.repository.Queries;
-import az.booking.project.general.app.service.impl.UserServiceImpl;
+import az.booking.project.general.app.dao.repository.PassengerFlightRepository;
+import az.booking.project.general.app.dao.repository.Queries;
+import az.booking.project.general.app.service.impl.PassengerServiceImpl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,7 +29,7 @@ public class PassengerFlightRepositoryImpl implements PassengerFlightRepository 
 
     @Override
     public boolean delete(int flightId) {
-        int id = UserServiceImpl.getUserId();
+        int id = PassengerServiceImpl.getUserId();
         boolean isDeleted = false;
         try (Connection connection = SQLConfig.sqlConfig().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(Queries.DELETE_FLIGHT)) {

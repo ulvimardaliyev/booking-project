@@ -1,4 +1,4 @@
-package az.booking.project.general.app.entity;
+package az.booking.project.general.app.dao.entity;
 
 import lombok.*;
 

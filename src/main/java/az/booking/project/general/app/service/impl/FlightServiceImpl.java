@@ -1,7 +1,7 @@
 package az.booking.project.general.app.service.impl;
 
-import az.booking.project.general.app.entity.Flight;
-import az.booking.project.general.app.repository.FlightRepository;
+import az.booking.project.general.app.dao.entity.Flight;
+import az.booking.project.general.app.dao.repository.FlightRepository;
 import az.booking.project.general.app.service.FlightService;
 
 import java.time.LocalDate;
@@ -23,7 +23,7 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public List<Flight> search() {
+    public void search() {
         System.out.println("Enter destination ");
         String destination = scanner.next();
         System.out.println("Enter date as format YYYY-MM-DD");
@@ -31,8 +31,13 @@ public class FlightServiceImpl implements FlightService {
         LocalDate localDate = LocalDate.parse(date);
         System.out.println("Enter the count of people who you want to fly with you");
         int number = scanner.nextInt();
-        return flightRepository.search(destination, localDate, number);
-
+        List<Flight> results = flightRepository.search(destination, localDate, number);
+        System.out.printf("%s -------- %s -------- %s -------- %s -------- %s -------- %s -------- %s\n",
+                "id", "destination", "fromthis", "serialnumber", "flightdate", "flighttime", "passenger_count");
+        results.forEach(flight ->
+                System.out.printf("%d -------- %s -------- %s -------- %s -------- %s -------- %s -------- %s \n",
+                        flight.getId(), flight.getDestination(), flight.getFromThis(), flight.getSerialNumber(),
+                        flight.getLocalDate(), flight.getLocalTime(), flight.getPassengerCount()));
     }
 
     @Override

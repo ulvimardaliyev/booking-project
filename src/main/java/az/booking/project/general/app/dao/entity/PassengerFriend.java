@@ -1,4 +1,4 @@
-package az.booking.project.general.app.entity;
+package az.booking.project.general.app.dao.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PassengerFlight {
+public class PassengerFriend {
     private Long passengerId;
-    private Long flightId;
+    private Long friendId;
 }

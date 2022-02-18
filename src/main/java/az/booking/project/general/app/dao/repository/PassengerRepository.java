@@ -1,7 +1,7 @@
-package az.booking.project.general.app.repository;
+package az.booking.project.general.app.dao.repository;
 
-import az.booking.project.general.app.entity.Flight;
-import az.booking.project.general.app.entity.Friend;
+import az.booking.project.general.app.dao.entity.Flight;
+import az.booking.project.general.app.dao.entity.Friend;
 
 import java.util.List;
 

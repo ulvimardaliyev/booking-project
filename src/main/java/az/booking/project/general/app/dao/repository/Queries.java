@@ -1,4 +1,4 @@
-package az.booking.project.general.app.repository;
+package az.booking.project.general.app.dao.repository;
 
 public class Queries {
     public static final String FIND_ALL_FLIGHTS =
